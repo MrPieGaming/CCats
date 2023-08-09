@@ -24,7 +24,7 @@ export const Meow: Command = {
     run: async (client: Client, interaction: CommandInteraction) => {
         // console.log("the interaction:");
         // console.log(interaction);
-        const limit = interaction.options.get('cats');
+        const limit = interaction.options.get('cats', false)?.value;
         const url = limit ?
             `https://api.thecatapi.com/v1/images/search?limit=${limit}` :
             "https://api.thecatapi.com/v1/images/search";
@@ -40,9 +40,17 @@ export const Meow: Command = {
         console.log(url);
         console.log(cats);
 
+        let content = "";
+        cats.forEach((cat: { url: string; }) => {
+            content += cat.url + " ";
+        });
+
+        console.log("content:");
+        console.log(content);
+
         await interaction.followUp({
             ephemeral: true,
-            content: cats.length > 0 ? cats[0].url : "Something went wrong :("
+            content: cats.length > 0 ? content : "Something went wrong :("
         });
     }
 }
