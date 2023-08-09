@@ -4,7 +4,7 @@ module.exports = {
             name: "ccats",
             script: "npm",
             automation: false,
-            args: "run start",
+            args: "run tsstart",
             max_restarts: 3,
             env: {
                 NODE_ENV: "development"
